@@ -6,6 +6,7 @@
 
       <sidenav-router-link icon="ion ion-ios-contact" to="/Employee" :exact="true">Developerzy</sidenav-router-link>
       <sidenav-router-link icon="ion ion-md-desktop" to="/Project" :exact="true">Projekty</sidenav-router-link>
+      <!--<sidenav-router-link icon="ion ion-md-desktop" to="/Project" :exact="true">Projekty sprzedażowe</sidenav-router-link> -->
 
     </div>
   </sidenav>
