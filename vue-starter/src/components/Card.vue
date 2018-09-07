@@ -6,13 +6,13 @@
       </td>
       <div class="media-body ml-4">
         <td style="padding-top: 100px">
-          <h1 class="font-weight-bold mb-0">{{employee.profile.name}} {{employee.profile.lastName}} </h1>
+          <h1 class="font-weight-bold mb-0">{{employee.profile.name}}</h1>
         </td>
         <h2 class="font-weight-bold mb-0">{{employee.profile.specialization}}</h2>
         <table class="table-level">
           <table class="table table-hover" border="1">
-            <td v-for="numb in 5" class="box-level " :key="numb">
-              <div v-if="numb <= employee.profile.rating" class="box">
+            <td v-for="numb in 5" class="box-level" :class="{'box':numb <= employee.profile.rating}" :key="numb">
+              <div v-if="numb <= employee.profile.rating">
               </div>
             </td>
             <h5>
@@ -30,13 +30,11 @@
         <b-btn variant="primary" size="sm">Edit</b-btn>&nbsp;
       </div>
     </div>
-    <hr class="border-light container-m--x mt-0 mb-5">
+    <!-- <hr class="border-light container-m--x mt-0 mb-5"> -->
 
+    <!-- <hr class="border-light container-m--x mt-0 mb-5"> -->
 
-    <h4 class="font-weight-bold py-3 mb-4">
-      <span class="text-muted font-weight-light"></span>
-    </h4>
-    <v-client-table :data="empoyee" :columns='columns' :options="options">
+    <v-client-table :data="employee.skills" :columns='columns' :options="options">
       <template slot="edit" slot-scope="props">
         <div>
           <b-btn variant="outline-success borderless icon-btn" class="btn-xs" @click.prevent="cardEmployee(props.row.id)">
@@ -46,21 +44,146 @@
             <i class="ion ion-md-close"></i>
           </b-btn>
         </div>
-
       </template>
-      <template slot="child_row" slot-scope="props">
-        <div>
-          <b>Umiejętności: </b> {{props.row.name}}</div>
-        <div>
-          <b>Doświadczenie: </b> {{props.row.experience}}</div>
-        <div>
-          <b>Stopień: </b> {{props.row.profficiency}}</div>
-      </template>
+      <!-- <template slot="child_row" slot-scope="props">
+        <div><b>First name:</b> {{props.row.name}}</div>
+        <div><b>Last name:</b> {{props.row.lastName}}</div>
+      </template> -->
     </v-client-table>
+
+    <table class="table table-hover">
+      <tr>
+
+        <td>
+          <table class="table table-hover" border="1" style="margin-bottom:0;">
+            <td class="box"></td>
+          </table>
+        </td>
+        <td>Junior</td>
+
+        <td>
+          <table class="table table-hover" border="1" style="margin-bottom:0;">
+            <td class="box"></td>
+            <td class="box"></td>
+          </table>
+        </td>
+        <td>Middle</td>
+
+        <td>
+          <table class="table table-hover" border="1" style="margin-bottom:0;">
+            <td class="box"></td>
+            <td class="box"></td>
+            <td class="box"></td>
+          </table>
+        </td>
+        <td>Proficient</td>
+
+        <td>
+          <table class="table table-hover" border="1" style="margin-bottom:0;">
+            <td class="box"></td>
+            <td class="box"></td>
+            <td class="box"></td>
+            <td class="box"></td>
+          </table>
+        </td>
+        <td>Senior</td>
+
+        <td>
+          <table class="table table-hover" border="1" style="margin-bottom:0;">
+            <td class="box"></td>
+            <td class="box"></td>
+            <td class="box"></td>
+            <td class="box"></td>
+            <td class="box"></td>
+          </table>
+        </td>
+        <td>Expert</td>
+      </tr>
+    </table>
+
+    <hr class="border-light m-0">
+    <b-card-body>
+      <template v-for="p in employee.projects" >
+        <table class="table user-view-table m-0">
+          <tbody>
+            <tr>
+              <td>{{p.name}}</td>
+              <td>{{p.title}}</td>
+            </tr>
+            <tr>
+              <td>Client Sector:</td>
+              <td>{{p.clientSector}}</td>
+            </tr>
+            <template v-for="t in p.technology" >
+            <tr>
+              <td>Technologies:</td>
+              <td>{{t.name}}</td>
+            </tr>
+            </template>
+            <tr>
+              <td>Start:</td>
+              <td>{{p.startDate}}</td>
+            </tr>
+            <tr>
+              <td>End:</td>
+              <td>{{p.endDate}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
+    </b-card-body>
+
+    <v-client-table :data="employee.languages" :columns='columns3' :options="options">
+      <template slot="edit" slot-scope="props">
+        <div>
+          <b-btn variant="outline-success borderless icon-btn" class="btn-xs" @click.prevent="cardEmployee(props.row.id)">
+            <i class="ion ion-md-filing"></i>
+          </b-btn>
+          <b-btn variant="outline-danger borderless icon-btn" class="btn-xs" @click.prevent="remove(props.row.id)">
+            <i class="ion ion-md-close"></i>
+          </b-btn>
+        </div>
+      </template>
+      <!-- <template slot="child_row" slot-scope="props">
+        <div><b>First name:</b> {{props.row.name}}</div>
+        <div><b>Last name:</b> {{props.row.lastName}}</div>
+      </template> -->
+    </v-client-table>
+
+    <table class="table table-hover">
+      <tr>
+
+        <td>
+          <table class="table table-hover" border="1" style="margin-bottom:0;">
+            <td class="box"></td>
+          </table>
+        </td>
+        <td>Basic</td>
+
+        <td>
+          <table class="table table-hover" border="1" style="margin-bottom:0;">
+            <td class="box"></td>
+            <td class="box"></td>
+          </table>
+        </td>
+        <td>Good</td>
+
+        <td>
+          <table class="table table-hover" border="1" style="margin-bottom:0;">
+            <td class="box"></td>
+            <td class="box"></td>
+            <td class="box"></td>
+          </table>
+        </td>
+        <td>Fluent</td>
+      </tr>
+    </table>
+
   </div>
 </template>
 
 <style src="@/vendor/libs/vue-data-tables/vue-data-tables.scss" lang="scss"></style>
+<style src="@/vendor/styles/pages/users.scss" lang="scss"></style>
 
 <script>
 import axios from "axios";
@@ -75,12 +198,26 @@ export default {
   metaInfo: {
     title: "Karta Pracownika"
   },
+  name: "pages-user-view",
+  metaInfo: {
+    title: "User view - Pages"
+  },
   data: () => ({
     tableData: [],
+    employee: [],
     employee: {},
     errors: [],
     alert: "",
-    columns: ["name", "experience", "profficiency", "edit"],
+    columns: ["name", "experience", "profficiency"],
+    columns2: [
+      "name",
+      "title",
+      "clientSector",
+      "technology",
+      "startDate",
+      "endDate"
+    ],
+    columns3: ["name", "speaking", "writing", "reading"],
     options: {
       pagination: {
         chunk: 5
@@ -120,6 +257,9 @@ export default {
     },
     remove(row) {
       alert(`Remove: ${row}`);
+    },
+    colorBox: function() {
+      numb <= employee.profile.rating;
     }
   }
 };
@@ -172,7 +312,6 @@ a {
 }
 
 .box {
-  width: 100%;
   height: 100%;
   background: #f64a35;
 }
