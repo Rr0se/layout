@@ -18,18 +18,47 @@
         </div>
       </template>
       <template slot="child_row" slot-scope="props">
-        <div>
-          <b>Nazwa:</b> {{props.row.name}}</div>
-        <div>
-          <b>Tytuł:</b> {{props.row.title}}</div>
-        <div>
-          <b>Klient Sektor:</b> {{props.row.clientSector}}</div>
-        <div>
-          <b>Technologie:</b> {{props.row.technology}}</div>
-        <div>
-          <b>Start:</b> {{props.row.startDate}}</div>
-        <div>
-          <b>Koniec:</b> {{props.row.endDate}}</div>
+        <tr>
+          <td>
+            <b>Nazwa:</b>
+          </td>
+          <td>{{props.row.name}}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Tytuł:</b>
+          </td>
+          <td> {{props.row.title}}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Klient Sektor:</b>
+          </td>
+          <td> {{props.row.clientSector}}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Technologie:</b>
+          </td>
+          <td>
+            <template v-for="tech in projects.technology">
+              {{props.row.tech.name}}
+              </template>
+              </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Start:</b>
+          </td>
+          <td>{{props.row.startDate}}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Koniec:</b>
+          </td>
+          <td>
+            {{props.row.endDate}}</td>
+        </tr>
       </template>
     </v-client-table>
   </div>

@@ -4,6 +4,7 @@ import Meta from "vue-meta";
 import Employee from "@/components/Employee";
 import Project from "@/components/Project";
 import Card from "@/components/Card";
+import AddEmployee from "@/components/AddEmployee";
 
 import globals from "@/globals";
 
@@ -32,6 +33,10 @@ const router = new Router({
         {
           path: "card",
           component: () => import("@/components/Card")
+        },
+        {
+          path: "addemployee",
+          component: () => import("@/components/AddEmployee")
         }
       ]
     }

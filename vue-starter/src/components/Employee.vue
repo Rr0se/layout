@@ -3,8 +3,13 @@
     <h4 class="font-weight-bold py-3 mb-4">
       <span class="text-muted font-weight-light">Pracownicy</span> / Developerzy
     </h4>
-
-    <hr class="border-light container-m--x mt-0 mb-5">
+    <tr>
+    <router-link to="/addemployee">
+    <b-btn variant="primary" size="sm">Dodaj Pracowika</b-btn>&nbsp;
+    </router-link>
+ </tr>
+ <br>
+    <!-- <hr class="border-light container-m--x mt-0 mb-5"> -->
 
     <v-client-table :data="employees" :columns='columns' :options="options">
       <template slot="edit" slot-scope="props">
@@ -18,6 +23,7 @@
         <div><b>Last name:</b> {{props.row.lastName}}</div>
       </template>
     </v-client-table>
+
   </div>
 </template>
 

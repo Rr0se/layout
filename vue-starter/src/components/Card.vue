@@ -104,12 +104,14 @@
     <hr class="border-light m-0">
     <b-card-body>
       <template v-for="p in employee.projects" >
-        <table class="table user-view-table m-0">
+        <table class="table table-hover" border="1">
           <tbody>
-            <tr>
-              <td>{{p.name}}</td>
-              <td>{{p.title}}</td>
-            </tr>
+              <tr class="table-tittle">
+            <td align="left" class="text-color" colspan="2">
+              <h4> {{p.name}}</h4>
+              <h4>{{p.title}}</h4>
+            </td>
+          </tr>
             <tr>
               <td>Client Sector:</td>
               <td>{{p.clientSector}}</td>
@@ -198,10 +200,10 @@ export default {
   metaInfo: {
     title: "Karta Pracownika"
   },
-  name: "pages-user-view",
-  metaInfo: {
-    title: "User view - Pages"
-  },
+  // name: "pages-user-view",
+  // metaInfo: {
+  //   title: "User view - Pages"
+  // },
   data: () => ({
     tableData: [],
     employee: [],
@@ -222,6 +224,7 @@ export default {
       pagination: {
         chunk: 5
       },
+      filterable: false,
       sortIcon: {
         is: "fa-sort",
         base: "fas",
@@ -318,5 +321,8 @@ a {
 
 .text-name {
   padding-top: 70px;
+}
+table > thead > tr > th {
+  background-color: #f64a35;
 }
 </style>
