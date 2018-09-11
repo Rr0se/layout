@@ -3,15 +3,24 @@
     <h4 class="font-weight-bold py-3 mb-4">
       <span class="text-muted font-weight-light"></span>Projekty
     </h4>
-
-    <hr class="border-light container-m--x mt-0 mb-5">
+    <tr>
+    <router-link to="/addproject">
+    <b-btn style=" background: #f64a35" size="sm">Dodaj nowy</b-btn>&nbsp;
+    </router-link>
+ </tr>
+<br>
+    <!-- <hr class="border-light container-m--x mt-0 mb-5"> -->
 
     <v-client-table :data="projects" :columns='columns' :options="options">
       <template slot="edit" slot-scope="props">
         <div>
+
+           <router-link to="/editproject">
           <b-btn variant="outline-success borderless icon-btn" class="btn-xs" @click.prevent="edit(props.row.id)">
             <i class="ion ion-md-create"></i>
           </b-btn>
+          </router-link>
+
           <b-btn variant="outline-danger borderless icon-btn" class="btn-xs" @click.prevent="remove(props.row.id)">
             <i class="ion ion-md-close"></i>
           </b-btn>
@@ -41,20 +50,20 @@
             <b>Technologie:</b>
           </td>
           <td>
-            <template v-for="tech in projects.technology">
-              {{props.row.tech.name}}
+            <template v-for="(tech, index) in props.row.technology">
+              {{tech.name}}{{index != props.row.technology.length-1 ? ', ' : ' ' }}
               </template>
               </td>
         </tr>
         <tr>
           <td>
-            <b>Start:</b>
+            <b>Data rozpoczęcia projektu:</b>
           </td>
           <td>{{props.row.startDate}}</td>
         </tr>
         <tr>
           <td>
-            <b>Koniec:</b>
+            <b>Data zakończenia projektu:</b>
           </td>
           <td>
             {{props.row.endDate}}</td>
@@ -116,3 +125,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* .btn-color {
+  background: #f64a35;
+} */
+</style>

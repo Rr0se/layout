@@ -27,7 +27,9 @@
             </h5>
           </td>
         </tr>
-        <b-btn variant="primary" size="sm">Edit</b-btn>&nbsp;
+        <router-link to="/editemployee">
+          <b-btn style=" background: #f64a35" size="sm">Edytuj</b-btn>&nbsp;
+        </router-link>
       </div>
     </div>
     <!-- <hr class="border-light container-m--x mt-0 mb-5"> -->
@@ -102,37 +104,38 @@
     </table>
 
     <hr class="border-light m-0">
-    <b-card-body>
-      <template v-for="p in employee.projects" >
-        <table class="table table-hover" border="1">
-          <tbody>
-              <tr class="table-tittle">
+    <b-card-body v-for="p in employee.projects" :key="p.id">
+      <table class="table " border="1">
+        <tbody>
+          <tr class="table-tittle">
             <td align="left" class="text-color" colspan="2">
               <h4> {{p.name}}</h4>
               <h4>{{p.title}}</h4>
             </td>
           </tr>
-            <tr>
-              <td>Client Sector:</td>
-              <td>{{p.clientSector}}</td>
-            </tr>
-            <template v-for="t in p.technology" >
-            <tr>
-              <td>Technologies:</td>
-              <td>{{t.name}}</td>
-            </tr>
-            </template>
-            <tr>
-              <td>Start:</td>
-              <td>{{p.startDate}}</td>
-            </tr>
-            <tr>
-              <td>End:</td>
-              <td>{{p.endDate}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </template>
+          <tr>
+            <td>Client Sector:</td>
+            <td>{{p.clientSector}}</td>
+          </tr>
+
+          <tr>
+            <td>Technologies:</td>
+            <td>
+              <span v-for="(t, index) in p.technology" :key="t.id">{{t.name}}{{index != p.technology.length-1 ? ', ' : ' ' }}</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Start:</td>
+            <td>{{p.startDate}}</td>
+          </tr>
+          <tr>
+            <td>End:</td>
+            <td>{{p.endDate}}</td>
+          </tr>
+        </tbody>
+      </table>
+
     </b-card-body>
 
     <v-client-table :data="employee.languages" :columns='columns3' :options="options">
@@ -322,6 +325,7 @@ a {
 .text-name {
   padding-top: 70px;
 }
+
 table > thead > tr > th {
   background-color: #f64a35;
 }

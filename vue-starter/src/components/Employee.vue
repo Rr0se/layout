@@ -5,7 +5,7 @@
     </h4>
     <tr>
     <router-link to="/addemployee">
-    <b-btn variant="primary" size="sm">Dodaj Pracowika</b-btn>&nbsp;
+    <b-btn style=" background: #f64a35" size="sm">Dodaj nowego</b-btn>&nbsp;
     </router-link>
  </tr>
  <br>

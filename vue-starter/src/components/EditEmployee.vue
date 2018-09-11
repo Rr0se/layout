@@ -1,7 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4">
+    <div class="offset-lg-4 col-lg-4">
 
       <b-card-body class="pb-2">
 
@@ -21,7 +20,7 @@
         <b-input class="mb-1" />
       </b-form-group> -->
         <b-form-group label="Rating">
-          <b-check-group v-model="multipleModel" :options="options3" />
+          <b-radio-group v-model="multipleModel" :options="options3" />
         </b-form-group>
 
         <b-form-group label="Kadencja">
@@ -29,50 +28,33 @@
         </b-form-group>
 
         <b-form-group label="Projekt">
-          <b-select v-model="selectedproject">
-            <option v-for=" proj in projects">
-              {{proj.name}}
-            </option>
-          </b-select>
+          <b-select v-model="selectedproject" />
+          <option v-for=" proj in projekts">
+            {{proj.name}}
+          </option>
         </b-form-group>
 
-        <!-- <b-form-group label="Język" v-if="languages.length">
-          <b-select v-model="selectedlanguage">
-            <option v-for=" lang in languages">
-              {{lang.languageName}}
-            </option>
-          </b-select>
-        </b-form-group> -->
+        <b-form-group label="Język">
+          <b-select v-model="selectedlanguage" />
+          <option v-for=" lang in languages">
+            {{proj.languageName}}
+          </option>
+        </b-form-group>
 
-        <multiselect v-model="selectedlanguage" label="languageName" track-by="id" placeholder="Type to search" :options="languages"
-          :multiple="true" :searchable="true" :internal-search="false" :clear-on-select="false" :close-on-select="false" :hide-selected="true">
-          <span slot="noResult">No frameworks found.</span>
-        </multiselect>
-
-        <div class="row" v-for="language in selectedlanguage" :key="language.id">
-          <div class="col-md-3">{{language.languageName}}</div>
-          <div class="col-md-9">
-
-            <div class="row">
-              <b-form-group label="Stopień w mowie">
-                <b-check-group v-model="multipleModel" :options="options" />
-                <!-- <fieldset disabled>
+        <b-form-group label="Stopień w mowie">
+          <b-check-group v-model="multipleModel" :options="options" />
+          <!-- <fieldset disabled>
             <b-radio-group v-model="singleModel" :options="options" />
           </fieldset> -->
-              </b-form-group>
-            </div>
-            <div class="row">
-              <b-form-group label="Stopień w czytaniu">
-                <b-check-group v-model="multipleModel" :options="options" />
-              </b-form-group>
-            </div>
-            <div class="row">
-              <b-form-group label="Stopień w piśmie">
-                <b-check-group v-model="multipleModel" :options="options" />
-              </b-form-group>
-            </div>
-          </div>
-        </div>
+        </b-form-group>
+
+        <b-form-group label="Stopień w czytaniu">
+          <b-check-group v-model="multipleModel" :options="options" />
+        </b-form-group>
+
+        <b-form-group label="Stopień w piśmie">
+          <b-check-group v-model="multipleModel" :options="options" />
+        </b-form-group>
 
         <b-form-group label="Umiejętności">
           <b-select v-model="selectedskill">
@@ -89,9 +71,10 @@
         <b-form-group label="Stopień">
           <b-check-group v-model="multipleModel" :options="options2" />
         </b-form-group>
-        <button type="submit" class="btn btn-primary btn-outline">Dodaj</button>
+        
+        <button type="submit" class="btn  btn-outline" style=" background: #f64a35">Dodaj</button>
         <router-link to="/project">
-          <button type="submit" class="btn btn-primary btn-outline">
+          <button type="submit" class="btn btn-outline" style=" background: #f64a35">
             Wróć</button>
         </router-link>
       </b-card-body>

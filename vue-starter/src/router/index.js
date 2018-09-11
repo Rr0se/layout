@@ -5,6 +5,9 @@ import Employee from "@/components/Employee";
 import Project from "@/components/Project";
 import Card from "@/components/Card";
 import AddEmployee from "@/components/AddEmployee";
+import AddProject from "@/components/AddProject";
+import EditEmployee from "@/components/EditEmployee";
+import EditProject from "@/components/EditProject";
 
 import globals from "@/globals";
 
@@ -37,6 +40,18 @@ const router = new Router({
         {
           path: "addemployee",
           component: () => import("@/components/AddEmployee")
+        },
+        {
+          path: "addproject",
+          component: () => import("@/components/AddProject")
+        },
+        {
+          path: "editemployee",
+          component: () => import("@/components/EditEmployee")
+        },
+        {
+          path: "editproject",
+          component: () => import("@/components/EditProject")
         }
       ]
     }
