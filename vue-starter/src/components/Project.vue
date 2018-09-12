@@ -16,7 +16,7 @@
         <div>
 
            <router-link to="/editproject">
-          <b-btn variant="outline-success borderless icon-btn" class="btn-xs" @click.prevent="edit(props.row.id)">
+          <b-btn variant="outline-success borderless icon-btn" class="btn-xs" @click.prevent="editproject(props.row.id)">
             <i class="ion ion-md-create"></i>
           </b-btn>
           </router-link>
@@ -78,6 +78,8 @@
 <script>
 import axios from "axios";
 import Vue from "vue";
+import router from "../router";
+
 import { ClientTable } from "vue-tables-2";
 
 Vue.use(ClientTable);
@@ -118,6 +120,11 @@ export default {
   methods: {
     edit(row) {
       alert(`Edit: ${row}`);
+    },
+    editproject(id) {
+      router.push({
+        path: `/editproject?id=` + id
+      });
     },
     remove(row) {
       alert(`Remove: ${row}`);

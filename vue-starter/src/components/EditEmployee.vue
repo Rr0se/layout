@@ -27,41 +27,68 @@
           <b-input class="mb-1" />
         </b-form-group>
 
-        <b-form-group label="Projekt">
+        <!-- <b-form-group label="Projekt">
           <b-select v-model="selectedproject" />
           <option v-for=" proj in projekts">
             {{proj.name}}
           </option>
+        </b-form-group> -->
+
+        <b-form-group label="Projekt">
+          <multiselect v-model="selectedproject" label="name" track-by="id" placeholder="Wybierz projekt" :options="projects" :multiple="true"
+            :searchable="true" :internal-search="false" :clear-on-select="false" :close-on-select="false" :hide-selected="true">
+            <span slot="noResult">No frameworks found.</span>
+          </multiselect>
         </b-form-group>
 
-        <b-form-group label="Język">
+        <!-- <b-form-group label="Język">
           <b-select v-model="selectedlanguage" />
           <option v-for=" lang in languages">
             {{proj.languageName}}
           </option>
-        </b-form-group>
+        </b-form-group> -->
 
-        <b-form-group label="Stopień w mowie">
-          <b-check-group v-model="multipleModel" :options="options" />
-          <!-- <fieldset disabled>
+        <b-form-group label="Język">
+          <multiselect v-model="selectedlanguage" label="languageName" track-by="id" placeholder="Wybierz język" :options="languages"
+            :multiple="true" :searchable="true" :internal-search="false" :clear-on-select="false" :close-on-select="false"
+            :hide-selected="true">
+            <span slot="noResult">No frameworks found.</span>
+          </multiselect>
+        </b-form-group>
+        
+        <div class="row" v-for="language in selectedlanguage" :key="language.id">
+          <div class="col-md-3">{{language.languageName}}</div>
+          <div class="col-md-9">
+
+            <div class="row">
+              <b-form-group label="Stopień w mowie">
+                <b-radio-group v-model="multipleModel" :options="options" />
+                <!-- <fieldset disabled>
             <b-radio-group v-model="singleModel" :options="options" />
           </fieldset> -->
-        </b-form-group>
+              </b-form-group>
+            </div>
 
-        <b-form-group label="Stopień w czytaniu">
-          <b-check-group v-model="multipleModel" :options="options" />
-        </b-form-group>
+            <div class="row">
+              <b-form-group label="Stopień w czytaniu">
+                <b-radio-group v-model="multipleModel" :options="options" />
+              </b-form-group>
+            </div>
 
-        <b-form-group label="Stopień w piśmie">
-          <b-check-group v-model="multipleModel" :options="options" />
-        </b-form-group>
+            <div class="row">
+              <b-form-group label="Stopień w piśmie">
+                <b-radio-group v-model="multipleModel" :options="options" />
+              </b-form-group>
+            </div>
+          </div>
+        </div>
 
         <b-form-group label="Umiejętności">
-          <b-select v-model="selectedskill">
-            <option v-for=" skil in skills">
-              {{skil.skillName}}
-            </option>
-          </b-select>
+          <multiselect v-model="selectedskill" label="skillName" track-by="id" placeholder="Wybierz umiejętność" :options="skills"
+            :multiple="true" :searchable="true" :internal-search="false" :clear-on-select="false" :close-on-select="false"
+            :hide-selected="true">
+            <span slot="noResult">No frameworks found.</span>
+          </multiselect>
         </b-form-group>
 
         <b-form-group label="Doświadczenie w latach">
@@ -69,9 +96,9 @@
         </b-form-group>
 
         <b-form-group label="Stopień">
-          <b-check-group v-model="multipleModel" :options="options2" />
+          <b-radio-group v-model="multipleModel" :options="options2" />
         </b-form-group>
-        
+
         <button type="submit" class="btn  btn-outline" style=" background: #f64a35">Dodaj</button>
         <router-link to="/project">
           <button type="submit" class="btn btn-outline" style=" background: #f64a35">
@@ -184,7 +211,6 @@ export default {
       .catch(e => {
         this.errors.push(e);
       });
-
     axios
       .get("http://localhost:4444/api/skills/GetSkills")
       .then(response => {

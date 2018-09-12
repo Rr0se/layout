@@ -203,10 +203,6 @@ export default {
   metaInfo: {
     title: "Karta Pracownika"
   },
-  // name: "pages-user-view",
-  // metaInfo: {
-  //   title: "User view - Pages"
-  // },
   data: () => ({
     tableData: [],
     employee: [],

@@ -10,11 +10,11 @@
         <b-card-body class="pb-2">
 
       <b-form-group label="Tytuł">
-        <b-input class="mb-1" />
+        <b-input class="mb-1" v-model="project.title" />
       </b-form-group>
 
       <b-form-group label="Klient Sektor">
-        <b-input class="mb-1" />
+        <b-input class="mb-1" v-model="project.clientSector" />
       </b-form-group>
 
       <b-form-group label="Technologie">
@@ -57,6 +57,88 @@
   
 </template>
 
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style src="@/vendor/libs/vue-multiselect/vue-multiselect.scss" lang="scss"></style>
+
+<!-- Page -->
+<style src="@/vendor/styles/pages/users.scss" lang="scss"></style>
+
+<script>
+import axios from "axios";
+import Vue from "vue";
+
+import Multiselect from "vue-multiselect";
+
+export default {
+  // name: "Edit-Project",
+  metaInfo: {
+    title: "Edit Project"
+  },
+  components: {
+    Multiselect
+  },
+  data: () => ({
+    tableData: [],
+    project: {
+      title: "",
+      clientSector: "",
+      startDate: "",
+      endDate: ""
+    },
+    employees: [],
+    technologies: [],
+    errors: [],
+    selectedtechnologies: [],
+    selectedemployee: [],
+    errors: [],
+    alert: "",
+    file: null
+  }),
+  created() {
+    var id = this.getUrlParameter("id");
+    axios
+      .get(`http://localhost:4444/api/projects/GetProject?id=` + id)
+      .then(response => {
+        this.project.title = response.data.title;
+        this.project.clientSector = response.data.clientSector;
+        this.project.startDate = response.data.startDate;
+        this.project.endDate = response.data.endDate;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+    axios
+      .get("http://localhost:4444/api/technologies/GetTechnologies")
+      .then(response => {
+        this.technologies = response.data;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+    axios
+      .get("http://localhost:4444/api/employees/GetEmployees")
+      .then(response => {
+        this.employees = response.data;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+  },
+  methods: {
+    getUrlParameter(name) {
+      var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
+        window.location.href
+      );
+      if (results == null) {
+        return null;
+      } else {
+        return decodeURI(results[1]) || 0;
+      }
+    }
+  }
+};
+</script>
 <style scoped>
 h1,
 h2 {

@@ -17,13 +17,21 @@
         <b-input class="mb-1" />
       </b-form-group>
 
-      <b-form-group label="Technologie">
+      <!-- <b-form-group label="Technologie">
         <b-select v-model="selectedtechnologies">
           <option v-for="techno in technologies">
             {{techno.technologyName}}
           </option>
         </b-select>
-      </b-form-group>
+      </b-form-group> -->
+
+      <b-form-group label="Pracownik">
+          <multiselect v-model="selectedtechnologies" label="technologyName" track-by="id" placeholder="Wybierz technologie" :options="technologies"
+            :multiple="true" :searchable="true" :internal-search="false" :clear-on-select="false" :close-on-select="false"
+            :hide-selected="true">
+            <span slot="noResult">No frameworks found.</span>
+          </multiselect>
+        </b-form-group>
 
       <b-form-group label="Data rozpoczęcia projektu">
         <b-input class="mb-1" />
@@ -33,14 +41,21 @@
         <b-input class="mb-1" />
       </b-form-group>
 
-        <b-form-group label="Pracownik">
+        <!-- <b-form-group label="Pracownik">
         <b-select v-model="selectedemployee">
           <option v-for="emp in employees">
             {{ emp.profile.name }} {{ emp.profile.lastName }}
           </option>
         </b-select>
-      </b-form-group>
+      </b-form-group> -->
 
+<b-form-group label="Pracownik">
+          <multiselect v-model="selectedemployee" label="fullname"  track-by="id" placeholder="Wybierz pracownika" :options="employees"
+            :multiple="true" :searchable="true" :internal-search="false" :clear-on-select="false" :close-on-select="false"
+            :hide-selected="true">
+            <span slot="noResult">No frameworks found.</span>
+          </multiselect>
+        </b-form-group>
         
 
 
@@ -56,6 +71,61 @@
   </div>
   
 </template>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style src="@/vendor/libs/vue-multiselect/vue-multiselect.scss" lang="scss"></style>
+
+<!-- Page -->
+<style src="@/vendor/styles/pages/users.scss" lang="scss"></style>
+
+<script>
+import axios from "axios";
+import Vue from "vue";
+
+import Multiselect from "vue-multiselect";
+
+export default {
+  name: "Add-Project",
+  metaInfo: {
+    title: "Add Project"
+  },
+  components: {
+    Multiselect
+  },
+  data: () => ({
+    employees: [],
+    technologies: [],
+    errors: [],
+    selectedtechnologies: [],
+    selectedemployee: [],
+    errors: [],
+    alert: "",
+    file: null
+  }),
+  created() {
+    axios
+      .get("http://localhost:4444/api/technologies/GetTechnologies")
+      .then(response => {
+        this.technologies = response.data;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+    axios
+      .get("http://localhost:4444/api/employees/GetEmployees")
+      .then(response => {
+        for (let index = 0; index < response.data.length; index++) {
+          response.data[index].fullname =
+            response.data[index].name + " " + response.data[index].lastName;
+        }
+        this.employees = response.data;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+  }
+};
+</script>
 
 <style scoped>
 h1,
