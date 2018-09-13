@@ -9,7 +9,6 @@
     </router-link>
  </tr>
 <br>
-    <!-- <hr class="border-light container-m--x mt-0 mb-5"> -->
 
     <v-client-table :data="projects" :columns='columns' :options="options">
       <template slot="edit" slot-scope="props">
@@ -26,6 +25,8 @@
           </b-btn>
         </div>
       </template>
+
+
       <template slot="child_row" slot-scope="props">
         <tr>
           <td>
@@ -79,6 +80,7 @@
 import axios from "axios";
 import Vue from "vue";
 import router from "../router";
+import moment from "moment";
 
 import { ClientTable } from "vue-tables-2";
 
@@ -111,6 +113,10 @@ export default {
     axios
       .get(`http://localhost:4444/api/projects/GetProjects`)
       .then(response => {
+        // this.project.startDate = this.frontEndDateFormat(
+        //   response.data.startDate
+        // );
+        // this.project.endDate = this.frontEndDateFormat(response.data.endDate);
         this.projects = response.data;
       })
       .catch(e => {
@@ -118,6 +124,9 @@ export default {
       });
   },
   methods: {
+    frontEndDateFormat: function(date) {
+      return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    },
     edit(row) {
       alert(`Edit: ${row}`);
     },

@@ -25,7 +25,7 @@
         </b-select>
       </b-form-group> -->
 
-      <b-form-group label="Pracownik">
+      <b-form-group label="Technologie">
           <multiselect v-model="selectedtechnologies" label="technologyName" track-by="id" placeholder="Wybierz technologie" :options="technologies"
             :multiple="true" :searchable="true" :internal-search="false" :clear-on-select="false" :close-on-select="false"
             :hide-selected="true">

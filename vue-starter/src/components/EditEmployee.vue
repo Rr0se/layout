@@ -5,15 +5,15 @@
       <b-card-body class="pb-2">
 
         <b-form-group label="Imię">
-          <b-input class="mb-1" />
+          <b-input class="mb-1" v-model="employees.name"></b-input>
         </b-form-group>
 
         <b-form-group label="Nazwisko">
-          <b-input class="mb-1" />
+          <b-input class="mb-1" v-model="employees.lastName"></b-input>
         </b-form-group>
 
         <b-form-group label="Specjalizacja">
-          <b-input class="mb-1" />
+          <b-input class="mb-1" v-model="employees.specialization"></b-input>
         </b-form-group>
 
         <!-- <b-form-group label="Ocena">
@@ -41,13 +41,6 @@
           </multiselect>
         </b-form-group>
 
-        <!-- <b-form-group label="Język">
-          <b-select v-model="selectedlanguage" />
-          <option v-for=" lang in languages">
-            {{proj.languageName}}
-          </option>
-        </b-form-group> -->
-
         <b-form-group label="Język">
           <multiselect v-model="selectedlanguage" label="languageName" track-by="id" placeholder="Wybierz język" :options="languages"
             :multiple="true" :searchable="true" :internal-search="false" :clear-on-select="false" :close-on-select="false"
@@ -63,9 +56,7 @@
             <div class="row">
               <b-form-group label="Stopień w mowie">
                 <b-radio-group v-model="multipleModel" :options="options" />
-                <!-- <fieldset disabled>
-            <b-radio-group v-model="singleModel" :options="options" />
-          </fieldset> -->
+
               </b-form-group>
             </div>
 
@@ -119,19 +110,22 @@
 <script>
 import axios from "axios";
 import Vue from "vue";
-
+import moment from "moment";
 import Multiselect from "vue-multiselect";
 
 export default {
-  name: "Add-EMployee",
+  name: "Edit-EMployee",
   metaInfo: {
-    title: "Add Employee"
+    title: "Edit Employee"
   },
   components: {
     Multiselect
   },
   data: () => ({
-    employees: [],
+    employees: {
+      name: "",
+      lastName: ""
+    },
     languages: [],
     skills: [],
     projects: [],

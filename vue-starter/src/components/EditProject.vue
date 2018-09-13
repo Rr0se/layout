@@ -18,28 +18,27 @@
       </b-form-group>
 
       <b-form-group label="Technologie">
-        <b-select v-model="selectedtechnologies">
-          <option v-for="techno in technologies">
-            {{techno.technologyName}}
-          </option>
-        </b-select>
-      </b-form-group>
+          <multiselect v-model="selectedtechnologies" label="technologyName" track-by="id" placeholder="Wybierz technologie" :options="technologies"
+            :multiple="true" :searchable="true" :internal-search="false" :clear-on-select="false" :close-on-select="false"
+            :hide-selected="true">
+            <span slot="noResult">No frameworks found.</span>
+          </multiselect>
+        </b-form-group>
 
       <b-form-group label="Data rozpoczęcia projektu">
-        <b-input class="mb-1" />
-      </b-form-group>
-
+        <b-input class="mb-1" v-model="project.startDate "></b-input>
+      </b-form-group> 
       <b-form-group label="Data zakończenia projektu">
-        <b-input class="mb-1" />
+        <b-input class="mb-1" v-model="project.endDate"> </b-input>
       </b-form-group>
 
         <b-form-group label="Pracownik">
-        <b-select v-model="selectedemployee">
-          <option v-for="emp in employees">
-            {{ emp.profile.name }} {{ emp.profile.lastName }}
-          </option>
-        </b-select>
-      </b-form-group>
+          <multiselect v-model="selectedemployee" label="fullname"  track-by="id" placeholder="Wybierz pracownika" :options="employees"
+            :multiple="true" :searchable="true" :internal-search="false" :clear-on-select="false" :close-on-select="false"
+            :hide-selected="true">
+            <span slot="noResult">No frameworks found.</span>
+          </multiselect>
+        </b-form-group>
 
         
 
@@ -67,7 +66,7 @@
 <script>
 import axios from "axios";
 import Vue from "vue";
-
+import moment from "moment";
 import Multiselect from "vue-multiselect";
 
 export default {
@@ -102,8 +101,25 @@ export default {
       .then(response => {
         this.project.title = response.data.title;
         this.project.clientSector = response.data.clientSector;
-        this.project.startDate = response.data.startDate;
-        this.project.endDate = response.data.endDate;
+        this.project.startDate = this.frontEndDateFormat(
+          response.data.startDate
+        );
+        this.project.endDate = this.frontEndDateFormat(response.data.endDate);
+
+        for (let index = 0; index < response.data.profiles.length; index++) {
+          response.data.profiles[index].fullname =
+            response.data.profiles[index].name +
+            " " +
+            response.data.profiles[index].lastName;
+        }
+
+        this.selectedemployee = response.data.profiles;
+
+        for (let index = 0; index < response.data.technology.length; index++) {
+          response.data.technology[index].technologyName =
+            response.data.technology[index].name;
+        }
+        this.selectedtechnologies = response.data.technology;
       })
       .catch(e => {
         this.errors.push(e);
@@ -119,6 +135,10 @@ export default {
     axios
       .get("http://localhost:4444/api/employees/GetEmployees")
       .then(response => {
+        for (let index = 0; index < response.data.length; index++) {
+          response.data[index].fullname =
+            response.data[index].name + " " + response.data[index].lastName;
+        }
         this.employees = response.data;
       })
       .catch(e => {
@@ -126,6 +146,9 @@ export default {
       });
   },
   methods: {
+    frontEndDateFormat: function(date) {
+      return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    },
     getUrlParameter(name) {
       var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
         window.location.href

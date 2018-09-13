@@ -1,26 +1,44 @@
 <template>
-   <div>
+  <div>
     <h4 class="font-weight-bold py-3 mb-4">
       <span class="text-muted font-weight-light">Pracownicy</span> / Developerzy
     </h4>
     <tr>
-    <router-link to="/addemployee">
-    <b-btn style=" background: #f64a35" size="sm">Dodaj nowego</b-btn>&nbsp;
-    </router-link>
- </tr>
- <br>
+      <router-link to="/addemployee">
+        <b-btn style=" background: #f64a35" size="sm">Dodaj nowego</b-btn>&nbsp;
+      </router-link>
+    </tr>
+    <br>
     <!-- <hr class="border-light container-m--x mt-0 mb-5"> -->
 
     <v-client-table :data="employees" :columns='columns' :options="options">
       <template slot="edit" slot-scope="props">
         <div>
-          <b-btn variant="outline-success borderless icon-btn" class="btn-xs" @click.prevent="cardEmployee(props.row.id)"><i class="ion ion-md-filing"></i></b-btn>
-          <b-btn variant="outline-danger borderless icon-btn" class="btn-xs" @click.prevent="remove(props.row.id)"><i class="ion ion-md-close"></i></b-btn>
+          <b-btn variant="outline-success borderless icon-btn" class="btn-xs" @click.prevent="cardEmployee(props.row.id)">
+            <i class="ion ion-md-filing"></i>
+          </b-btn>
+          <b-btn variant="outline-danger borderless icon-btn" class="btn-xs" @click.prevent="remove(props.row.id)">
+            <i class="ion ion-md-close"></i>
+          </b-btn>
         </div>
       </template>
+
+
       <template slot="child_row" slot-scope="props">
-        <div><b>First name:</b> {{props.row.name}}</div>
-        <div><b>Last name:</b> {{props.row.lastName}}</div>
+        <tr>
+          <td><b>First name:</b></td>
+          <td>{{props.row.name}}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Last name:</b>
+          </td>
+          <td>
+            {{props.row.lastName}}
+
+          </td>
+        </tr>
+
       </template>
     </v-client-table>
 

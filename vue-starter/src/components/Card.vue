@@ -32,9 +32,6 @@
         </router-link>
       </div>
     </div>
-    <!-- <hr class="border-light container-m--x mt-0 mb-5"> -->
-
-    <!-- <hr class="border-light container-m--x mt-0 mb-5"> -->
 
     <v-client-table :data="employee.skills" :columns='columns' :options="options">
       <template slot="edit" slot-scope="props">
@@ -47,10 +44,6 @@
           </b-btn>
         </div>
       </template>
-      <!-- <template slot="child_row" slot-scope="props">
-        <div><b>First name:</b> {{props.row.name}}</div>
-        <div><b>Last name:</b> {{props.row.lastName}}</div>
-      </template> -->
     </v-client-table>
 
     <table class="table table-hover">
@@ -149,10 +142,6 @@
           </b-btn>
         </div>
       </template>
-      <!-- <template slot="child_row" slot-scope="props">
-        <div><b>First name:</b> {{props.row.name}}</div>
-        <div><b>Last name:</b> {{props.row.lastName}}</div>
-      </template> -->
     </v-client-table>
 
     <table class="table table-hover">
@@ -193,6 +182,7 @@
 <script>
 import axios from "axios";
 import Vue from "vue";
+import moment from "moment";
 
 import { ClientTable } from "vue-tables-2";
 
@@ -237,6 +227,12 @@ export default {
     axios
       .get(`http://localhost:4444/api/employees/GetEmployee?id=` + id)
       .then(response => {
+        // this.employee.project.startDate = this.frontEndDateFormat(
+        //   response.data.startDate
+        // );
+        // this.employee.project.endDate = this.frontEndDateFormat(
+        //   response.data.endDate
+        // );
         this.employee = response.data;
       })
       .catch(e => {
@@ -244,6 +240,9 @@ export default {
       });
   },
   methods: {
+    // frontEndDateFormat: function(date) {
+    //   return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    // },
     getUrlParameter(name) {
       var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
         window.location.href
